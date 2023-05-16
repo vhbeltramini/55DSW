@@ -23,10 +23,10 @@ public class AdminService {
 	
 	@PostMapping("/user/admin")
 	public ResponseEntity<Admin> create(@Valid @RequestBody Admin admin){
-		Admin sevedAdmin = repository.save(admin);
+		Admin savedAdmin = repository.save(admin);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id)")
-				.buildAndExpand(sevedAdmin.getId())
+				.buildAndExpand(savedAdmin.getId())
 				.toUri();
 		return ResponseEntity.created(location).build();
 	}

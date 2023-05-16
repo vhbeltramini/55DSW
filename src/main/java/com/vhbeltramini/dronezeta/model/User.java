@@ -1,10 +1,15 @@
 package com.vhbeltramini.dronezeta.model;
 
+import com.vhbeltramini.dronezeta.model.enums.Roles;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Size;
+
+import javax.management.relation.Role;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @Entity
 public abstract class User {
@@ -26,14 +31,20 @@ public abstract class User {
 	@OneToOne
 	private Address address;
 
+	private String passwordHash;
+
+	private Roles role;
+
 	public User() {}
 
-	public User(String firstName, String lastName, Integer cpf, String email) {
+	public User(String firstName, String lastName, Integer cpf, String email, Roles role, String password) throws NoSuchAlgorithmException {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.cpf = cpf;
 		this.email = email;
+		this.role = role;
+		this.passwordHash = getPasswordHash(password);
 	}
 
 	public Integer getId() {
@@ -84,4 +95,33 @@ public abstract class User {
 		this.address = address;
 	}
 
+	public Roles getRole() {
+		return role;
+	}
+
+	private String getPasswordHash(String password) throws NoSuchAlgorithmException {
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		byte[] hash = digest.digest(password.getBytes());
+		StringBuilder hexString = new StringBuilder();
+		for (byte b : hash) {
+			String hex = Integer.toHexString(0xff & b);
+			if (hex.length() == 1) {
+				hexString.append('0');
+			}
+			hexString.append(hex);
+		}
+		return hexString.toString();
+	}
+
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
+	}
+
+	public void setRole(Roles role) {
+		this.role = role;
+	}
 }

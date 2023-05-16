@@ -25,6 +25,9 @@ public class Order {
 
 	private OrderStatus status;
 
+	@OneToOne
+	private Delivery delivery;
+
 	public Order() {}
 
 	public Order(List<Product> products, Date date, Client client, PaymentMethod paymentMethod, OrderStatus status) {
@@ -82,6 +85,14 @@ public class Order {
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+
+	public Delivery getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
 	}
 
 	public enum OrderStatus {
