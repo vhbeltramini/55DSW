@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface DeliveryRepository extends JpaRepository<Delivery, Integer>{
 
-
     Optional<Delivery> findByOrderId(Integer id);
 
 }

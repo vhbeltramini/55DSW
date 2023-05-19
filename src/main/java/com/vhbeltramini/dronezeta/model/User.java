@@ -1,18 +1,16 @@
 package com.vhbeltramini.dronezeta.model;
 
-import com.vhbeltramini.dronezeta.model.enums.Roles;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import com.vhbeltramini.dronezeta.model.enums.Role;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
-import javax.management.relation.Role;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Entity
-public abstract class User {
+public class User {
+
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -31,13 +29,19 @@ public abstract class User {
 	@OneToOne
 	private Address address;
 
+	@OneToOne
+	private Address deliveryAddress;
+
 	private String passwordHash;
 
-	private Roles role;
+	@OneToMany
+	private List<PaymentMethod> paymentMethodList;
+
+	private Role role;
 
 	public User() {}
 
-	public User(String firstName, String lastName, Integer cpf, String email, Roles role, String password) throws NoSuchAlgorithmException {
+	public User(String firstName, String lastName, Integer cpf, String email, Role role, String password) throws NoSuchAlgorithmException {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -95,7 +99,7 @@ public abstract class User {
 		this.address = address;
 	}
 
-	public Roles getRole() {
+	public Role getRole() {
 		return role;
 	}
 
@@ -121,7 +125,25 @@ public abstract class User {
 		this.passwordHash = passwordHash;
 	}
 
-	public void setRole(Roles role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
+
+	public Address getDeliveryAddress() {
+		return deliveryAddress;
+	}
+
+	public void setDeliveryAddress(Address deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
+
+	public List<PaymentMethod> getPaymentMethodList() {
+		return paymentMethodList;
+	}
+
+	public void setPaymentMethodList(List<PaymentMethod> paymentMethodList) {
+		this.paymentMethodList = paymentMethodList;
+	}
+
 }
+

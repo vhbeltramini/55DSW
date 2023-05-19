@@ -19,16 +19,67 @@ public class Product {
 
 	private Double price;
 
+	private Integer quantity;
+
 	private String photoUrl;
 
 
 	public Product() {}
 
-	public Product(Integer id, String name, Double weight, Double price) {
+	public Product(Integer id, String name, Double weight, Double price, Integer quantity) {
 		this.id = id;
 		this.name = name;
 		this.weight = weight;
 		this.price = price;
+		this.quantity = quantity;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 }

@@ -60,4 +60,8 @@ public class Delivery {
 	public void setTravels(List<Travel> travels) {
 		this.travels = travels;
 	}
+
+	public void addTravel(Travel travel) {
+		this.travels.add(travel);
+	}
 }

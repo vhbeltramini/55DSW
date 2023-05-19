@@ -18,7 +18,7 @@ public class Order {
 	private Date date;
 
 	@OneToOne
-	private Client client;
+	private User user;
 
 	@OneToOne
 	private PaymentMethod paymentMethod;
@@ -30,11 +30,11 @@ public class Order {
 
 	public Order() {}
 
-	public Order(List<Product> products, Date date, Client client, PaymentMethod paymentMethod, OrderStatus status) {
+	public Order(List<Product> products, Date date, User user, PaymentMethod paymentMethod, OrderStatus status) {
 		super();
 		this.products = products;
 		this.date = date;
-		this.client = client;
+		this.user = user;
 		this.paymentMethod = paymentMethod;
 		this.status = status;
 	}
@@ -63,12 +63,12 @@ public class Order {
 		this.date = date;
 	}
 
-	public Client getClient() {
-		return client;
+	public User getUser() {
+		return user;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public PaymentMethod getPaymentMethod() {

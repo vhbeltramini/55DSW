@@ -63,15 +63,9 @@ public class UserService {
 	}
 
 	@PutMapping("/user/{id}")
-	public ResponseEntity<User> updateEmployee(@PathVariable(value = "id") Long id, @Valid @RequestBody User userDetails) throws Exception {
-		User user = repository.findById(Math.toIntExact(id))
-				.orElseThrow(() -> new Exception("User not found for this id :: " + id));
+	public ResponseEntity<User> updateEmployee(@PathVariable(value = "id") Long id, @Valid @RequestBody User user) throws Exception {
 
-		user.setFirstName(userDetails.getFirstName());
-		user.setLastName(userDetails.getLastName());
-		user.setCpf(userDetails.getCpf());
-		user.setEmail(userDetails.getEmail());
-		user.setAddress(userDetails.getAddress());
+		user.setId(Math.toIntExact(id));
 
 		final User updatedUser = repository.save(user);
 

@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -19,28 +20,25 @@ public class Travel {
 
 	private TravelStatus status;
 
+	private String timeToDelivery;
+
 	public Travel() {}
 
 	public Travel(List<Product> products, TravelStatus status) {
 		super();
 		this.products = products;
 		this.status = status;
+		this.timeToDelivery = LocalDateTime.now().plusMinutes(2).toString();
 	}
 
 	public enum TravelStatus {
-		WAITING_TO_DELIVERY (3, "Aguardando pagamento."){
-			@Override
-			public boolean isWaitingToDelivery() {
-				return true;
-			}
-		},
-		TRAVELING (2, "Pagamento Confirmado"){
+		SENT(1, "Enviado."){
 			@Override
 			public boolean isTreveling() {
 				return true;
 			}
 		},
-		DELIVERED (1, "Entregue"){
+		DELIVERED (2, "Entregue."){
 			@Override
 			public boolean isDelivered() {
 				return true;
@@ -54,7 +52,6 @@ public class Travel {
 
 		public boolean isDelivered() {return false;}
 
-		public boolean isWaitingToDelivery(){return false;}
 
 		public String getDescription() {
 			return description;
@@ -73,5 +70,7 @@ public class Travel {
 	public boolean isDelivered() {
 		return this.status.isDelivered();
 	}
+
+
 
 }

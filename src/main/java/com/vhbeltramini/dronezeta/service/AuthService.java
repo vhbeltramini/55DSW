@@ -18,14 +18,20 @@ import java.util.Optional;
 @RestController
 public class AuthService {
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+
+    @Autowired
+    public AuthService(UserRepository userRepository, JwtTokenProvider tokenProvider) {
+        super();
+        this.userRepository = userRepository;
+        this.jwtTokenProvider = tokenProvider;
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
