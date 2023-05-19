@@ -1,4 +1,4 @@
-package com.vhbeltramini.dronezeta.service;
+package com.vhbeltramini.dronezeta.service.rest;
 
 import com.vhbeltramini.dronezeta.model.Product;
 import com.vhbeltramini.dronezeta.repository.ProductRepository;
@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class ProductService {
+public class ProductController {
     private ProductRepository repository;
 
-    public ProductService(ProductRepository repository) {
+    public ProductController(ProductRepository repository) {
         super();
         this.repository = repository;
     }

@@ -1,8 +1,6 @@
-package com.vhbeltramini.dronezeta.service;
+package com.vhbeltramini.dronezeta.service.rest;
 
 import com.vhbeltramini.dronezeta.model.User;
-import com.vhbeltramini.dronezeta.model.User;
-import com.vhbeltramini.dronezeta.repository.UserRepository;
 import com.vhbeltramini.dronezeta.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class UserService {
+public class UserController {
 	private UserRepository repository;
 
-	public UserService(UserRepository repository) {
+	public UserController(UserRepository repository) {
 		super();
 		this.repository = repository;
 	}
 	
-	@PostMapping("/user")
+	@PostMapping("/login/user")
 	public ResponseEntity<User> create(@Valid @RequestBody User user){
 		User sevedUser = repository.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()

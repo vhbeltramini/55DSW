@@ -1,4 +1,4 @@
-package com.vhbeltramini.dronezeta.service;
+package com.vhbeltramini.dronezeta.service.rest;
 
 import com.vhbeltramini.dronezeta.model.Delivery;
 import com.vhbeltramini.dronezeta.repository.DeliveryRepository;
@@ -11,12 +11,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-public class DeliveryService {
+public class DeliveryController {
 
 
     private DeliveryRepository repository;
 
-    public DeliveryService(DeliveryRepository repository) {
+    public DeliveryController(DeliveryRepository repository) {
         super();
         this.repository = repository;
     }

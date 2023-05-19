@@ -1,4 +1,4 @@
-package com.vhbeltramini.dronezeta.service;
+package com.vhbeltramini.dronezeta.service.rest;
 
 import com.vhbeltramini.dronezeta.model.LoginRequest;
 import com.vhbeltramini.dronezeta.model.LoginResponse;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-public class AuthService {
+public class AuthController {
 
     private UserRepository userRepository;
 
@@ -26,7 +26,7 @@ public class AuthService {
 
 
     @Autowired
-    public AuthService(UserRepository userRepository, JwtTokenProvider tokenProvider) {
+    public AuthController(UserRepository userRepository, JwtTokenProvider tokenProvider) {
         super();
         this.userRepository = userRepository;
         this.jwtTokenProvider = tokenProvider;
@@ -48,6 +48,5 @@ public class AuthService {
         return ResponseEntity.ok(new LoginResponse(token));
     }
 
-    // Other endpoints and classes omitted for brevity
 
 }

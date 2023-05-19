@@ -1,6 +1,7 @@
-package com.vhbeltramini.dronezeta.service;
+package com.vhbeltramini.dronezeta.service.rest;
 
 import com.vhbeltramini.dronezeta.model.Order;
+import com.vhbeltramini.dronezeta.model.enums.OrderStatus;
 import com.vhbeltramini.dronezeta.repository.OrderRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class OrderService {
+public class OrderController {
     private OrderRepository repository;
 
-    public OrderService(OrderRepository repository) {
+    public OrderController(OrderRepository repository) {
         super();
         this.repository = repository;
     }
@@ -38,7 +39,7 @@ public class OrderService {
 
     @GetMapping(path= "/orders/open/{user_id}")
     public Order getOderByUserID(@PathVariable(value = "user_id") Integer user_id) throws Exception {
-        return repository.findByUserIdAndStatus(user_id, Order.OrderStatus.READY)
+        return repository.findByUserIdAndStatus(user_id, OrderStatus.READY)
                 .orElseThrow(() -> new Exception("Order not found for this user id :: " + user_id));
     }
 

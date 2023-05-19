@@ -3,6 +3,7 @@ package com.vhbeltramini.dronezeta.service.controller;
 import com.vhbeltramini.dronezeta.model.Delivery;
 import com.vhbeltramini.dronezeta.model.Product;
 import com.vhbeltramini.dronezeta.model.Travel;
+import com.vhbeltramini.dronezeta.model.enums.TravelStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class DeliveryHandler {
         for (int i = 0; i < productList.size(); i++) {
             tempProdList.add(productList.get(i));
             if (tempProdList.size() == 9) {
-                this.delivery.addTravel(new Travel(tempProdList, Travel.TravelStatus.SENT));
+                this.delivery.addTravel(new Travel(tempProdList, TravelStatus.SENT));
                 tempProdList = new ArrayList<>();
             }
         }
@@ -43,7 +44,7 @@ public class DeliveryHandler {
     }
 
     private Delivery processDeliveryOneTravel() {
-        this.delivery.addTravel(new Travel(this.delivery.getOrder().getProducts(), Travel.TravelStatus.SENT));
+        this.delivery.addTravel(new Travel(this.delivery.getOrder().getProducts(), TravelStatus.SENT));
         return this.delivery;
     }
 
