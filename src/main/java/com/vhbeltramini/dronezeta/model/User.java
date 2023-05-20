@@ -7,13 +7,11 @@ import jakarta.validation.constraints.Size;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Entity
 public class User {
-
 
 	private static final Logger logger = LoggerFactory.getLogger(User.class);
 
@@ -33,11 +31,9 @@ public class User {
 	@Size(min=3, message="O email deve ter pelo menos 3 caracteres")
 	private String email;
 
-	@OneToOne
-	private Address address;
+	private String address;
 
-	@OneToOne
-	private Address deliveryAddress;
+	private String deliveryAddress;
 
 	private String passwordHash;
 
@@ -102,11 +98,11 @@ public class User {
 		this.email = email;
 	}
 
-	public Address getAddress() {
+	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
@@ -126,11 +122,11 @@ public class User {
 		this.role = role;
 	}
 
-	public Address getDeliveryAddress() {
+	public String getDeliveryAddress() {
 		return deliveryAddress;
 	}
 
-	public void setDeliveryAddress(Address deliveryAddress) {
+	public void setDeliveryAddress(String deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
 	}
 

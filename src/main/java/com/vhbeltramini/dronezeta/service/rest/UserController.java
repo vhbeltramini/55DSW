@@ -50,11 +50,7 @@ public class UserController {
 	@GetMapping(path= "/users/{id}")
 	public User get(@PathVariable Long id) throws Exception {
 		Optional<User> user = repository.findById(Math.toIntExact(id));
-		if (user.isPresent()) {
-			return user.get();
-		}else {
-			return null;
-		}
+		return user.orElse(null);
 	}
 
 	@GetMapping(path= "/users/email/{email}")

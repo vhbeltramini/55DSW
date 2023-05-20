@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public class Address {
+
 	@Id
 	@GeneratedValue
 	private Integer id;
