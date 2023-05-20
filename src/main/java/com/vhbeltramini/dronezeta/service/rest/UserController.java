@@ -1,5 +1,6 @@
 package com.vhbeltramini.dronezeta.service.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vhbeltramini.dronezeta.model.User;
 import com.vhbeltramini.dronezeta.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -8,9 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -22,8 +25,10 @@ public class UserController {
 	}
 	
 	@PostMapping("/login/user")
-	public ResponseEntity<User> create(@Valid @RequestBody User user){
+	public ResponseEntity<User> create(@Valid @RequestBody User user) throws NoSuchAlgorithmException {
+		user.setPasswordHash(user.getPassword());
 		User sevedUser = repository.save(user);
+
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id)")
 				.buildAndExpand(sevedUser.getId())
@@ -38,11 +43,15 @@ public class UserController {
 
 	@GetMapping(path="/user/{id}")
 	public User get(@PathVariable Long id) throws Exception {
-		return repository.findById(Math.toIntExact(id))
-				.orElseThrow(() -> new Exception("User not found for this id :: " + id));
+		Optional<User> user = repository.findById(Math.toIntExact(id));
+		if (user.isPresent()) {
+			return user.get();
+		}else {
+			return null;
+		}
 	}
 
-	@GetMapping(path="/user/{email}")
+	@GetMapping(path="/user/email/{email}")
 	public User findByEmail(@PathVariable String email) throws Exception {
 		return repository.findByEmail(email)
 				.orElseThrow(() -> new Exception("User not found for this email :: " + email));

@@ -3,6 +3,8 @@ package com.vhbeltramini.dronezeta.model;
 import com.vhbeltramini.dronezeta.model.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -10,6 +12,9 @@ import java.util.List;
 
 @Entity
 public class User {
+
+
+	private static final Logger logger = LoggerFactory.getLogger(User.class);
 
 	@Id
 	@GeneratedValue
@@ -21,7 +26,7 @@ public class User {
 	private String lastName;
 
 	@Size(min=11, message="O cpf deve ter pelo menos 11 caracteres")
-	private Integer cpf;
+	private String cpf;
 
 	@Size(min=3, message="O email deve ter pelo menos 3 caracteres")
 	private String email;
@@ -34,6 +39,9 @@ public class User {
 
 	private String passwordHash;
 
+	@Transient
+	private String password;
+
 	@OneToMany
 	private List<PaymentMethod> paymentMethodList;
 
@@ -41,14 +49,14 @@ public class User {
 
 	public User() {}
 
-	public User(String firstName, String lastName, Integer cpf, String email, Role role, String password) throws NoSuchAlgorithmException {
+	public User(String firstName, String lastName, String cpf, String email, Role role, String password) throws NoSuchAlgorithmException {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.cpf = cpf;
 		this.email = email;
 		this.role = role;
-		this.passwordHash = getPasswordHash(password);
+		setPasswordHash(password);
 	}
 
 	public Integer getId() {
@@ -75,11 +83,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
@@ -103,7 +111,8 @@ public class User {
 		return role;
 	}
 
-	private String getPasswordHash(String password) throws NoSuchAlgorithmException {
+	private String convertPasswordHash(String password) throws NoSuchAlgorithmException {
+		System.out.println(password);
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = digest.digest(password.getBytes());
 		StringBuilder hexString = new StringBuilder();
@@ -114,6 +123,9 @@ public class User {
 			}
 			hexString.append(hex);
 		}
+		System.out.println("result");
+		System.out.println(hexString.toString());
+
 		return hexString.toString();
 	}
 
@@ -121,8 +133,10 @@ public class User {
 		return passwordHash;
 	}
 
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
+	public void setPasswordHash(String password) throws NoSuchAlgorithmException {
+		if (password != null) {
+			this.passwordHash = convertPasswordHash(password);
+		}
 	}
 
 	public void setRole(Role role) {
@@ -145,5 +159,12 @@ public class User {
 		this.paymentMethodList = paymentMethodList;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
 
