@@ -1,6 +1,5 @@
 package com.vhbeltramini.dronezeta.service.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vhbeltramini.dronezeta.model.User;
 import com.vhbeltramini.dronezeta.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -24,9 +23,8 @@ public class UserController {
 		this.repository = repository;
 	}
 	
-	@PostMapping("/login/user")
+	@PostMapping("/login/users")
 	public ResponseEntity<User> create(@Valid @RequestBody User user) throws NoSuchAlgorithmException {
-		user.setPasswordHash(user.getPassword());
 		User sevedUser = repository.save(user);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -36,12 +34,12 @@ public class UserController {
 		return ResponseEntity.created(location).build();
 	}
 
-	@GetMapping("/user")
+	@GetMapping("/users")
 	public List<User> getAll(){
 		return repository.findAll();
 	}
 
-	@GetMapping(path="/user/{id}")
+	@GetMapping(path= "/users/{id}")
 	public User get(@PathVariable Long id) throws Exception {
 		Optional<User> user = repository.findById(Math.toIntExact(id));
 		if (user.isPresent()) {
@@ -51,13 +49,13 @@ public class UserController {
 		}
 	}
 
-	@GetMapping(path="/user/email/{email}")
+	@GetMapping(path= "/users/email/{email}")
 	public User findByEmail(@PathVariable String email) throws Exception {
 		return repository.findByEmail(email)
 				.orElseThrow(() -> new Exception("User not found for this email :: " + email));
 	}
 
-	@DeleteMapping(path="/user/{id}")
+	@DeleteMapping(path= "/users/{id}")
 	public Map<String, Boolean> delete(@PathVariable Long id) throws Exception {
 		User user = repository.findById(Math.toIntExact(id))
 				.orElseThrow(() -> new Exception("User not found for this id :: " + id));
@@ -69,7 +67,7 @@ public class UserController {
 		return response;
 	}
 
-	@PutMapping("/user/{id}")
+	@PutMapping("/users/{id}")
 	public ResponseEntity<User> updateEmployee(@PathVariable(value = "id") Long id, @Valid @RequestBody User user) throws Exception {
 
 		user.setId(Math.toIntExact(id));
