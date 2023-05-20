@@ -1,1 +1,1 @@
-# 55DSW
+# Importante rodar os scripts de inserte basicos no banco apos a criacao do database

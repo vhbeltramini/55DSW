@@ -11,18 +11,64 @@ public class PaymentMethod {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@Size(min=5, message="O nome deve ter pelo menos 3 caracteres")
-	private Integer cardNumber;
 
-	@Size(min=11, message="O cpf deve ter pelo menos 11 caracteres")
+	private String cardNumber;
+
 	private String validDate;
+
+	private String cardHolderName;
+
+	@Size(max=3)
+	private String cvv;
 
 
 	public PaymentMethod() {}
 
-	public PaymentMethod(Integer cardNumber, String validDate) {
+	public PaymentMethod(String cardNumber, String validDate, String cardHolderName, String cvv) {
 		super();
 		this.cardNumber = cardNumber;
 		this.validDate = validDate;
+		this.cvv = cvv;
+		this.cardHolderName = cardHolderName;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public String getValidDate() {
+		return validDate;
+	}
+
+	public void setValidDate(String validDate) {
+		this.validDate = validDate;
+	}
+
+	public String getCardHolderName() {
+		return cardHolderName;
+	}
+
+	public void setCardHolderName(String cardHolderName) {
+		this.cardHolderName = cardHolderName;
+	}
+
+	public String getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(String cvv) {
+		this.cvv = cvv;
 	}
 }

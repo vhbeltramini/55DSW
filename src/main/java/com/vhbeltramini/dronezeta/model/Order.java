@@ -13,7 +13,7 @@ public class Order {
 	@GeneratedValue
 	private Integer id;
 
-	@OneToMany
+	@ManyToMany
 	private List<Product> products;
 
 	private Date date;
@@ -24,10 +24,17 @@ public class Order {
 	@OneToOne
 	private PaymentMethod paymentMethod;
 
+	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 
 	@OneToOne
 	private Delivery delivery;
+
+	@Transient
+	private Double totalValue;
+
+	@Transient
+	private Integer productsQuantity;
 
 	public Order() {}
 
@@ -105,4 +112,19 @@ public class Order {
 		return this.status.isSent();
 	}
 
+	public Double getTotalValue() {
+		return this.products.stream().mapToDouble(Product::getPrice).sum();
+	}
+
+	public void setTotalValue(Double totalValue) {
+		this.totalValue = totalValue;
+	}
+
+	public Integer getProductsQuantity() {
+		return products.size();
+	}
+
+	public void setProductsQuantity(Integer productsQuantity) {
+		this.productsQuantity = productsQuantity;
+	}
 }

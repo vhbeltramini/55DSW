@@ -1,13 +1,13 @@
 package com.vhbeltramini.dronezeta.model.enums;
 
 public enum TravelStatus {
-    SENT(1, "Enviado.") {
+    SENT {
         @Override
         public boolean isTreveling() {
             return true;
         }
     },
-    DELIVERED(2, "Entregue.") {
+    DELIVERED {
         @Override
         public boolean isDelivered() {
             return true;
@@ -34,8 +34,6 @@ public enum TravelStatus {
         return statusID;
     }
 
-    TravelStatus(Integer id, String description) {
-        this.statusID = id;
-        this.description = description;
+    TravelStatus() {
     }
 }

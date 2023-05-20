@@ -138,6 +138,11 @@ public class User {
 		this.paymentMethodList = paymentMethodList;
 	}
 
+	public void addPaymentMethodList(PaymentMethod paymentMethod) {
+		this.paymentMethodList.add(paymentMethod);
+	}
+
+
 	public String getPassword() {
 		return password;
 	}

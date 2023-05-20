@@ -33,6 +33,7 @@ public class UserController {
 
 		user.setPasswordHash(encodedPassword);
 
+		user.setRole(Role.CLIENT);
 		User sevedUser = repository.save(user);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
