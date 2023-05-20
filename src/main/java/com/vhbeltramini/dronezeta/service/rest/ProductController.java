@@ -2,6 +2,7 @@ package com.vhbeltramini.dronezeta.service.rest;
 
 import com.vhbeltramini.dronezeta.model.Product;
 import com.vhbeltramini.dronezeta.repository.ProductRepository;
+import com.vhbeltramini.dronezeta.service.dto.ProductDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Product> create(@Valid @RequestBody Product product){
+    public ResponseEntity<Product> create(@Valid @RequestBody Product product) {
         Product sevedProduct = repository.save(product);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id)")

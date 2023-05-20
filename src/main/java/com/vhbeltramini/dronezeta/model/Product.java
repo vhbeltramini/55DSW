@@ -3,7 +3,10 @@ package com.vhbeltramini.dronezeta.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 
 @Entity
@@ -15,26 +18,21 @@ public class Product {
 	@Size(min=3, message="O nome deve ter pelo menos 3 caracteres")
 	private String name;
 
-	private Double weight;
-
-	private Double height;
-
 	private Double price;
 
-	private Integer quantity;
+	@ManyToMany
+	private List<ProductStorage> productStorages;
 
 	private String photoUrl;
 
 
 	public Product() {}
 
-	public Product(Integer id, String name, Double weight, Double height, Double price, Integer quantity) {
+	public Product(Integer id, String name, Double price, List<ProductStorage> productStorages) {
 		this.id = id;
 		this.name = name;
-		this.weight = weight;
-		this.height = height;
 		this.price = price;
-		this.quantity = quantity;
+		this.productStorages = productStorages;
 	}
 
 	public Integer getId() {
@@ -53,14 +51,6 @@ public class Product {
 		this.name = name;
 	}
 
-	public Double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(Double weight) {
-		this.weight = weight;
-	}
-
 	public Double getPrice() {
 		return price;
 	}
@@ -77,19 +67,12 @@ public class Product {
 		this.photoUrl = photoUrl;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
+	public List<ProductStorage> getProductStorages() {
+		return productStorages;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setProductStorages(List<ProductStorage> productStorages) {
+		this.productStorages = productStorages;
 	}
 
-	public Double getHeight() {
-		return height;
-	}
-
-	public void setHeight(Double height) {
-		this.height = height;
-	}
 }

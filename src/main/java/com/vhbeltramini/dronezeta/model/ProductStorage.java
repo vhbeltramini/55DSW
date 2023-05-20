@@ -1,9 +1,7 @@
 package com.vhbeltramini.dronezeta.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import org.springframework.context.annotation.Primary;
 
 
 @Entity
@@ -12,20 +10,63 @@ public class ProductStorage {
 	@GeneratedValue
 	private Integer id;
 
-	@OneToOne
-	private Product name;
-
 	private Integer quantity;
+
+	private Double weight;
+
+	private Double height;
 
 	private String size;
 
 
 	public ProductStorage() {}
 
-	public ProductStorage(Product name, Integer quantity, String size) {
+	public ProductStorage(Double weight, Double height, Integer quantity, String size, Product product) {
 		super();
-		this.name = name;
+		this.weight = weight;
+		this.height = height;
 		this.quantity = quantity;
 		this.size = size;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
+	}
+
+	public Double getHeight() {
+		return height;
+	}
+
+	public void setHeight(Double height) {
+		this.height = height;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
 }
