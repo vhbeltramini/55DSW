@@ -72,6 +72,10 @@ public class Product {
 		return productStorages;
 	}
 
+	public void addProductStorages(List<ProductStorage> productStorages) {
+		this.productStorages.addAll(productStorages);
+	}
+
 	public void setProductStorages(List<ProductStorage> productStorages) {
 		this.productStorages = productStorages;
 	}

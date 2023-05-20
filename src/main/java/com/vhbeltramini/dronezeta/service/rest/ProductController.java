@@ -14,6 +14,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class ProductController {
@@ -32,6 +33,12 @@ public class ProductController {
 
         for (int i = 0; i < prodStorageSaved.size(); i++) {
             product.getProductStorages().get(i).setId(prodStorageSaved.get(i).getId());
+        }
+
+        Optional<Product> optionalProduct = repository.findByName(product.getName());
+        if (optionalProduct.isPresent()) {
+            product.setId(optionalProduct.get().getId());
+            product.addProductStorages(optionalProduct.get().getProductStorages());
         }
 
         Product savedProduct = repository.save(product);
