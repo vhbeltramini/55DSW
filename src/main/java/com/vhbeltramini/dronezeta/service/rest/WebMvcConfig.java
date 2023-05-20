@@ -16,6 +16,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenValidationInterceptor)
                 .addPathPatterns("/**") // Apply token validation for all endpoints
-                .excludePathPatterns("/login/*"); // Exclude the login endpoint from token validation
+                .excludePathPatterns("/**"); // Exclude the login endpoint from token validation
     }
 }
