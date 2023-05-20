@@ -47,6 +47,7 @@ public class User {
 	@OneToMany
 	private List<PaymentMethod> paymentMethodList;
 
+	@Enumerated(EnumType.STRING)
 	private Role role;
 
 	public User() {}
@@ -113,32 +114,12 @@ public class User {
 		return role;
 	}
 
-	private String convertPasswordHash(String password) throws NoSuchAlgorithmException {
-		System.out.println(password);
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		byte[] hash = digest.digest(password.getBytes());
-		StringBuilder hexString = new StringBuilder();
-		for (byte b : hash) {
-			String hex = Integer.toHexString(0xff & b);
-			if (hex.length() == 1) {
-				hexString.append('0');
-			}
-			hexString.append(hex);
-		}
-		System.out.println("result");
-		System.out.println(hexString.toString());
-
-		return hexString.toString();
-	}
-
 	public String getPasswordHash() {
 		return passwordHash;
 	}
 
-	public void setPasswordHash(String password) throws NoSuchAlgorithmException {
-		if (password != null) {
-			this.passwordHash = convertPasswordHash(password);
-		}
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 
 	public void setRole(Role role) {

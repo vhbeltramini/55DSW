@@ -6,6 +6,7 @@ import com.vhbeltramini.dronezeta.repository.UserRepository;
 import com.vhbeltramini.dronezeta.service.dto.UserDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,7 +28,10 @@ public class UserController {
 	
 	@PostMapping("/login/users")
 	public ResponseEntity<User> create(@RequestBody User user) throws NoSuchAlgorithmException {
-		user.setPasswordHash(user.getPassword());
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encodedPassword = passwordEncoder.encode(user.getPassword());
+
+		user.setPasswordHash(encodedPassword);
 
 		User sevedUser = repository.save(user);
 

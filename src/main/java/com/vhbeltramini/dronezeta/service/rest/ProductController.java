@@ -1,7 +1,9 @@
 package com.vhbeltramini.dronezeta.service.rest;
 
 import com.vhbeltramini.dronezeta.model.Product;
+import com.vhbeltramini.dronezeta.model.ProductStorage;
 import com.vhbeltramini.dronezeta.repository.ProductRepository;
+import com.vhbeltramini.dronezeta.repository.ProductStorageRepository;
 import com.vhbeltramini.dronezeta.service.dto.ProductDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +18,23 @@ import java.util.Map;
 @RestController
 public class ProductController {
     private ProductRepository repository;
+    private ProductStorageRepository productStorageRepository;
 
-    public ProductController(ProductRepository repository) {
+    public ProductController(ProductRepository repository, ProductStorageRepository productStorageRepository) {
         super();
         this.repository = repository;
+        this.productStorageRepository = productStorageRepository;
     }
 
     @PostMapping("/products")
     public ResponseEntity<Product> create(@Valid @RequestBody Product product) {
+        List<ProductStorage> prodStorageSaved = productStorageRepository.saveAll(product.getProductStorages());
+
+        for (int i = 0; i < prodStorageSaved.size(); i++) {
+            product.getProductStorages().get(i).setId(prodStorageSaved.get(i).getId());
+        }
+
+
         Product sevedProduct = repository.save(product);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id)")
