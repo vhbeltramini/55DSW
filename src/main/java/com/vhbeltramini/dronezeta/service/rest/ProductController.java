@@ -34,11 +34,10 @@ public class ProductController {
             product.getProductStorages().get(i).setId(prodStorageSaved.get(i).getId());
         }
 
-
-        Product sevedProduct = repository.save(product);
+        Product savedProduct = repository.save(product);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id)")
-                .buildAndExpand(sevedProduct.getId())
+                .buildAndExpand(savedProduct.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
