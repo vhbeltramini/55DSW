@@ -17,6 +17,8 @@ public class Product {
 
 	private Double weight;
 
+	private Double height;
+
 	private Double price;
 
 	private Integer quantity;
@@ -26,10 +28,11 @@ public class Product {
 
 	public Product() {}
 
-	public Product(Integer id, String name, Double weight, Double price, Integer quantity) {
+	public Product(Integer id, String name, Double weight, Double height, Double price, Integer quantity) {
 		this.id = id;
 		this.name = name;
 		this.weight = weight;
+		this.height = height;
 		this.price = price;
 		this.quantity = quantity;
 	}
@@ -82,4 +85,11 @@ public class Product {
 		this.quantity = quantity;
 	}
 
+	public Double getHeight() {
+		return height;
+	}
+
+	public void setHeight(Double height) {
+		this.height = height;
+	}
 }

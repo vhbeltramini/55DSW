@@ -1,10 +1,7 @@
 package com.vhbeltramini.dronezeta.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vhbeltramini.dronezeta.model.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.slf4j.Logger;
@@ -34,7 +31,6 @@ public class User {
 	private String cpf;
 
 	@Size(min=3, message="O email deve ter pelo menos 3 caracteres")
-	@Email
 	private String email;
 
 	@OneToOne
@@ -55,8 +51,7 @@ public class User {
 
 	public User() {}
 
-	@JsonCreator
-	public User(String firstName, String lastName, String cpf, String email) throws NoSuchAlgorithmException {
+	public User(String firstName, String lastName, String cpf, String email, String password) throws NoSuchAlgorithmException {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

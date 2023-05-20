@@ -1,7 +1,9 @@
 package com.vhbeltramini.dronezeta.service.rest;
 
 import com.vhbeltramini.dronezeta.model.User;
+import com.vhbeltramini.dronezeta.model.enums.Role;
 import com.vhbeltramini.dronezeta.repository.UserRepository;
+import com.vhbeltramini.dronezeta.service.dto.UserDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +26,13 @@ public class UserController {
 	}
 	
 	@PostMapping("/login/users")
-	public ResponseEntity<User> create(@Valid @RequestBody User user) throws NoSuchAlgorithmException {
+	public ResponseEntity<User> create(@RequestBody User user) throws NoSuchAlgorithmException {
+		user.setPasswordHash(user.getPassword());
+
 		User sevedUser = repository.save(user);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id)")
+				.path("/{id}")
 				.buildAndExpand(sevedUser.getId())
 				.toUri();
 		return ResponseEntity.created(location).build();

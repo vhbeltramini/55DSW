@@ -39,7 +39,6 @@ public class DeliveryController {
 
     @GetMapping(path= "/deliveries/send/{order_id}")
     public Delivery sendDelivery(@PathVariable Integer order_id) throws Exception {
-
         Delivery delivery = repository.findByOrderId(order_id)
                 .orElseThrow(() -> new Exception("Delivery not found for this order id :: " + order_id));
 
