@@ -28,11 +28,12 @@ public class Product {
 
 	public Product() {}
 
-	public Product(Integer id, String name, Double price, List<ProductStorage> productStorages) {
+	public Product(Integer id, String name, Double price, List<ProductStorage> productStorages, String photoUrl) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.productStorages = productStorages;
+		this.photoUrl = photoUrl;
 	}
 
 	public Integer getId() {
