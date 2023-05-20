@@ -17,8 +17,8 @@ public class ProductStorage {
 
 	public ProductStorage() {}
 
-	public ProductStorage(Double weight, Double height, Integer quantity, String size, Product product) {
-		super();
+	public ProductStorage(Integer id, Integer quantity, String size) {
+		this.id = id;
 		this.quantity = quantity;
 		this.size = size;
 	}
